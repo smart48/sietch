@@ -27,7 +27,7 @@ This stage we'll take the manual server steps and automate them via ansible.
 1. You have a server.
 1. In this example and future ones, we'll be deploying to [DigitalOcean](https://m.do.co/c/179a47e69ec8)
    but the steps should mostly work with any servers.
-1. The server is running Ubuntu 20.04
+1. The server is running Ubuntu 20.04 or Kubernetes cluster.
 1. You have SSH key pair.
 1. Needed to log into your server securely.
 1. You have a Domain Name, and you can add entries to point to the server.
@@ -38,7 +38,7 @@ This stage we'll take the manual server steps and automate them via ansible.
 
 ## Steps 1-3
 
-These are the same as for [Stage 0](../Stage_0/README.md). So please follow that till the end of Step 3.
+These are the same as for [Stage 1](https://github.com/haakco/deploying-laravel-app-stage1-simple-deploy). So please follow that till the end of Step 3.
 
 We'll then start from Step 4 by using Ansible instead.
 
@@ -705,7 +705,7 @@ Ok, now we copy the files over and add git to the known hosts.
     regexp: "^github\\.com"
 ```
 
-We are going to change one this compared to Stage 0 now.
+We are going to change one this compared to Stage 1 now.
 
 With GitHub, you can only use a deployment key in one repository. The simplest way to solve this problem is
 to create an ssh config that alias GitHub to a name per repository specifying a unique key for that alias.
@@ -735,7 +735,7 @@ future we can.
 
 You use it by replacing the ```github.com``` in your clone command with ```example-alias```.
 
-Now, lest clone our repository like we did in Stage 0. The one thing you will notice is the
+Now, lest clone our repository like we did in Stage 1. The one thing you will notice is the
 ```When: bootstrap | default(false)``` This is so if we don't have to delete the directory if we are updating code.
 
 ```yaml
