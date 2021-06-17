@@ -8,7 +8,7 @@ This stage we'll take the manual server steps and automate them via ansible.
 
 * Still reasonably simple
 * Server setup fully documented
-* New server setup fast  
+* New server setup fast
 * Simple to replicate servers
 
 ### Cons
@@ -38,7 +38,8 @@ This stage we'll take the manual server steps and automate them via ansible.
 
 ## Steps 1-3
 
-These are the same as for [Stage 1](https://github.com/haakco/deploying-laravel-app-stage1-simple-deploy). So please follow that till the end of Step 3.
+These are the same as for [Stage 1](https://github.com/haakco/deploying-laravel-app-stage1-simple-deploy). So please
+follow that till the end of Step 3.
 
 We'll then start from Step 4 by using Ansible instead.
 
@@ -66,8 +67,8 @@ You can find this playbook at ```boostrap.yml```
 
 In Ansible the first thing you need to set up is an Inventory file.
 
-Ansible uses this file to know where to contact your server. The inventory file puts servers into different
-groups so that only specific scripts will run against them.
+Ansible uses this file to know where to contact your server. The inventory file puts servers into different groups so
+that only specific scripts will run against them.
 
 We'll be using the ini format for now as it's the most common, and we'll use ```hosts.ini``` as the file name.
 
@@ -106,19 +107,19 @@ Finally, we want ssh to use the root user.
 You can do this by either setting the variable by host ```ansible_user=root``` or by setting the variable for all host
 by using ```[all:vars]```.
 
-While we at it, we're also going to add variables specifying our domain, PHP version, and the email that we want to register for
-LetsEncrypt.
+While we at it, we're also going to add variables specifying our domain, PHP version, and the email that we want to
+register for LetsEncrypt.
 
 So our ```hosts.ini``` finally becomes.
 
 ```ini
-srv01 ansible_ssh_host=srv01.example.com
+srv01 ansible_ssh_host = srv01.example.com
 
 [all:vars]
-ansible_user=root
-domain_name=example.com
-letsencrypt_email=cert@example.com
-php_ver=7.4
+ansible_user = root
+domain_name = example.com
+letsencrypt_email = cert@example.com
+php_ver = 7.4
 
 [web]
 srv01
@@ -192,7 +193,8 @@ Replace the steps above with the single command below.
 
 The ```name: Update on debian-based distros``` is the string printed out when it runs that step.
 
-We put this into our ```main.yml``` you can see it here [roles/upgrade_server/tasks/main.yml](ansible/roles/upgrade_server/tasks/main.yml)
+We put this into our ```main.yml``` you can see it
+here [roles/upgrade_server/tasks/main.yml](ansible/roles/upgrade_server/tasks/main.yml)
 
 Now that we have our first task, we need to create a playbook that will use it.
 
@@ -251,11 +253,11 @@ In the following steps, I'll only go over what an ansible command does for the f
 
 #### Install the database
 
-We'll be adding all of the steps to the following new file ```roles/postgresql/tasks/main.yml```. You can find the
-final version [here](./ansible/roles/postgresql/tasks/main.yml)
+We'll be adding all of the steps to the following new file ```roles/postgresql/tasks/main.yml```. You can find the final
+version [here](./ansible/roles/postgresql/tasks/main.yml)
 
-To install the database, we'll need to add the repository's key, add the repository, install Postgres and
-finally, run the commands to create the DB and user.
+To install the database, we'll need to add the repository's key, add the repository, install Postgres and finally, run
+the commands to create the DB and user.
 
 First lets add the key:
 
@@ -266,7 +268,8 @@ First lets add the key:
     id: 7FCC7D46ACCC4CF8
 ```
 
-Documentation for [apt_key here](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/apt_key_module.html).
+Documentation
+for [apt_key here](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/apt_key_module.html).
 
 Now let's add the repository.
 
@@ -283,12 +286,15 @@ So the step to add the PostgreSQL repository is:
     filename: pgdg.list
 ```
 
-Documentation for [apt_repository here](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/apt_repository_module.html).
+Documentation
+for [apt_repository here](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/apt_repository_module.html)
+.
 
 Next, we'll install PostgreSQL. We are going to specify the version of PostgreSQL to install so that future runs won't
 accidentally upgrade the sever.
 
-For this example, we'll install Redis on the same server, but you can also create a separate role for it if you would like.
+For this example, we'll install Redis on the same server, but you can also create a separate role for it if you would
+like.
 
 ```yaml
 - name: Install PostgresSQL and Redis
@@ -307,8 +313,8 @@ Documentation for [apt here](https://docs.ansible.com/ansible/latest/collections
 
 Finally, we need to create the DB user and database.
 
-To make this simpler, we are going to create the following bash script. Once the bash script has run, it will create
-a file ```/root/db_created``` that Ansible will use to know not to run it multiple times.
+To make this simpler, we are going to create the following bash script. Once the bash script has run, it will create a
+file ```/root/db_created``` that Ansible will use to know not to run it multiple times.
 
 ```bash
 #!/usr/bin/env bash
@@ -334,6 +340,7 @@ In Ansible, we will copy this file over to the server, making it executable. We'
 create the DB and user.
 
 Bellow are the steps to take.
+
 ```yaml
 - name: Create and setup db
   ansible.builtin.copy:
@@ -376,7 +383,7 @@ First, we'll add the required PPA's
 - name: Add nginx stable repository from PPA and install its signing key on Ubuntu target
   ansible.builtin.apt_repository:
     repo: 'ppa:nginx/stable'
-    
+
 - name: Add Onreg PHP PPA
   ansible.builtin.apt_repository:
     repo: 'ppa:ondrej/php'
@@ -473,8 +480,8 @@ The template allows us to use variables in the config.
 
 We'll replace the default nginx.conf with one that some more tuning it.
 
-We'll then set up the primary HTTP site that certbot needs to validate its certificate. We'll also generate dhparams
-to increase the SSL security.
+We'll then set up the primary HTTP site that certbot needs to validate its certificate. We'll also generate dhparams to
+increase the SSL security.
 
 We'll then generate the certificates, update Nginx to the final config for Larval.
 
@@ -482,7 +489,9 @@ Finally, we'll set certbot to check if it should update the certificates every w
 
 I'm not going to go over all the NGINX configs, but you can see the templates here to see what they are doing.
 
-I would also recommend going to look at Mozilla SSL [config recommendations here](https://ssl-config.mozilla.org/#server=nginx&version=1.17.7&config=intermediate&openssl=1.1.1d&guideline=5.6).
+I would also recommend going to look at Mozilla
+SSL [config recommendations here](https://ssl-config.mozilla.org/#server=nginx&version=1.17.7&config=intermediate&openssl=1.1.1d&guideline=5.6)
+.
 
 ```yaml
 - name: Create directory for site
@@ -494,7 +503,7 @@ I would also recommend going to look at Mozilla SSL [config recommendations here
   ansible.builtin.template:
     src: templates/index.html.j2
     dest: /var/www/site/public/index.html
-    
+
 - name: Install system nginx config
   template:
     src: templates/nginx.conf.j2
@@ -555,7 +564,8 @@ Once again, we are going to create a separate role and playbook for this.
 
 You can see the complete versions at  ```./roles/php_tuning/tasks/main.yml``` and ```./php_tuning.yml```.
 
-We are going to use the [ansible.builtin.lineinfile](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/lineinfile_module.html)
+We are going to use
+the [ansible.builtin.lineinfile](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/lineinfile_module.html)
 to make the changes.
 
 Let's start with setting the timezone.
@@ -580,13 +590,13 @@ As Ubuntu has separate php.ini files for the client and fpm, you will need to up
     state: present
 ```
 
-There many setting we may want to tune in the file. Rather than do a command per set, we can instead loop
-through a list to change multiple settings. See below for the rest of the settings changed.
+There many setting we may want to tune in the file. Rather than do a command per set, we can instead loop through a list
+to change multiple settings. See below for the rest of the settings changed.
 
 I've only shown it for the cli settings, but the role does it for fpm as well.
 
-You can look at the [./roles/php_tuning/tasks/main.yml](./ansible/roles/php_tuning/tasks/main.yml) files to
-see an example of other things you may want to change.
+You can look at the [./roles/php_tuning/tasks/main.yml](./ansible/roles/php_tuning/tasks/main.yml) files to see an
+example of other things you may want to change.
 
 ```yaml
 - name: Change mulitple setting for php.ini for cli
@@ -707,8 +717,8 @@ Ok, now we copy the files over and add git to the known hosts.
 
 We are going to change one this compared to Stage 1 now.
 
-With GitHub, you can only use a deployment key in one repository. The simplest way to solve this problem is
-to create an ssh config that alias GitHub to a name per repository specifying a unique key for that alias.
+With GitHub, you can only use a deployment key in one repository. The simplest way to solve this problem is to create an
+ssh config that alias GitHub to a name per repository specifying a unique key for that alias.
 
 So we are going to do precisely that with our new key.
 
@@ -752,7 +762,7 @@ Now, lest clone our repository like we did in Stage 1. The one thing you will no
     state: present
     line: "{{ lookup('pipe', 'ssh-keyscan -t rsa github.com') }}"
     regexp: "^github\\.com"
-    
+
 - name: Git checkout
   ansible.builtin.git:
     repo: 'git@example-alias:thedevdojo/wave.git'
