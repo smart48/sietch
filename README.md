@@ -65,7 +65,7 @@ While going through the steps to set up Ansible, we'll create separate playbooks
 
 Though typically, you would create a single playbook to set the server up.
 
-You can find this playbook at ```boostrap.yml```
+You can find this playbook at ```bootstrap.yml```
 
 ### Step 4.1: Create your inventory file
 
