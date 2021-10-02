@@ -1,0 +1,36 @@
+---
+- name: Add a MariaDB apt key
+  ansible.builtin.apt_key:
+    keyserver: keyserver.ubuntu.com
+    # https://mariadb.com/kb/en/installing-mariadb-deb-files-with-ansible/
+    id: 0xF1656F24C74CD1D8
+
+- name: Add MariaDB repository
+  ansible.builtin.apt_repository:
+  # https://downloads.mariadb.org/mariadb/repositories/#mirror=digitalocean-ams
+    repo: "deb [arch=amd64,arm64,ppc64el]  http://ams2.mirrors.digitalocean.com/mariadb/repo/10.6/ubuntu  groovy main"
+"
+    state: present
+    filename: pgdg.list
+
+- name: Install MariaDB and Redis
+  ansible.builtin.apt:
+    update_cache: yes
+    cache_valid_time: 600
+    name:
+      - mariadb-server
+      - mysql-client
+      - redis
+
+- name: Copy db creation script
+  ansible.builtin.copy:
+    src: createDb.sh
+    dest: /root/createDb.sh
+    owner: root
+    group: root
+    mode: '0744'
+
+- name: Create and setup db
+  ansible.builtin.command:
+    cmd: /root/createDb.sh db_example user_example password_example
+    creates: /root/db_created
