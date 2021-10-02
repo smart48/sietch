@@ -1,5 +1,9 @@
-# Stage 2: The different stages to learning how to deploy a Laravel App
+# Sietch
 
+Sietch is an Ansible package to set up Laravel on a server of your choice. This package does not take care of setting up the infrastructure. So you are expected to set up a VPS or server with access to it so the Ansible playbook(s) can be used.
+## Based on
+
+[https://github.com/haakco/deploying-laravel-app-stage2-simple-with-ansible-deploy](Haak.co Deploying Laravel App Stage 2)
 ## Intro
 
 This stage we'll take the manual server steps and automate them via ansible.
