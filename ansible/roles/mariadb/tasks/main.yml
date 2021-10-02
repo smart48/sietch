@@ -9,7 +9,6 @@
   ansible.builtin.apt_repository:
   # https://downloads.mariadb.org/mariadb/repositories/#mirror=digitalocean-ams
     repo: "deb [arch=amd64,arm64,ppc64el]  http://ams2.mirrors.digitalocean.com/mariadb/repo/10.6/ubuntu  groovy main"
-"
     state: present
     filename: pgdg.list
 
