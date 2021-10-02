@@ -8,26 +8,11 @@ This package is based on [Haak's Deploying Laravel App Stage 2](https://github.c
 
 This stage we'll take the manual server steps and automate them via ansible.
 
-### Pros
-
-* Still reasonably simple
-* Server setup fully documented
-* New server setup fast
-* Simple to replicate servers
-
-### Cons
-
-* Not fully repeatable yet
-* Takes longer initially to set up.
-* Require knowledge for far more application and moving pieces.
-* Setting up a local dev still not covered and hard to keep in sync.
-* Still has single point of failure (Only one server)
-
 ## Assumptions
 
 1. Php code is in git.
-1. You are using PostgreSQL.
-1. If not, replace the PostgreSQL step with your DB of choice.
+1. You are using MariaDB.
+1. If not, replace the MariaDB step with your DB of choice. PostgreSQL is possible
 1. You have a server.
 1. In this example and future ones, we'll be deploying to [DigitalOcean](https://m.do.co/c/179a47e69ec8)
    but the steps should mostly work with any servers.
@@ -42,7 +27,7 @@ This stage we'll take the manual server steps and automate them via ansible.
 
 ## Steps 1-3
 
-These are the same as for [Stage 1](https://github.com/haakco/deploying-laravel-app-stage1-simple-deploy). So please
+These are the same as for [Stage 1](STG1.md). So please
 follow that till the end of Step 3.
 
 We'll then start from Step 4 by using Ansible instead.
