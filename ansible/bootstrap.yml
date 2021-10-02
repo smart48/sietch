@@ -4,7 +4,7 @@
     bootstrap: true
   roles:
     - upgrade_server
-    - postgresql
+    - mariadb
     - nginx_php
     - php_tuning
     - deployment
