@@ -15,11 +15,9 @@ of ```srv01.example.com```.
 
 Log into your [DigitalOcean](https://m.do.co/c/179a47e69ec8) and select the droplets tab.
 
-![DO Droplets Tab](images/DO_droplets_btn.png)
 
 Then click the create button and select Droplets - Create cloud servers.
 
-![DO Create Button](images/DO_create_btn.png)
 
 You should now see the virtual server creation page.
 
@@ -39,20 +37,16 @@ So I've picked Frankfurt.
 
 Under additional options, select IPv6 and Monitoring.
 
-![DO Create droplet additional options](images/DO_droplet_aditional_options.png)
-
 Under authentication, select or add your SSH key.
 
 Now add the hostname with the domain that you chose above as the server hostname. e.g. ```srv01.example.com```
 
-![DO Create droplet hostname](images/DO_droplet_hostname.png)
 
 DigitalOcean will create PTR records pointing back to the servers IP's. Some service use this to validate your server,
 so it's a good idea to get it correct.
 
 Now click the create button to finalise.
 
-![DO Create droplet final create](images/DO_droplet_final_create.png)
 
 DigitalOcean will start creating your virtual server and take you to a page showing the creation progress.
 
@@ -66,8 +60,6 @@ You should have both an IPv4 and IPv6 address for the server at the top of the p
 
 If you don't have the IPv6 IP, you can click the 'Enable now button'.
 
-![DO Create droplet final create](images/DO_droplet_ips.png)
-
 Grab these two IP's and head over to your DNS provider.
 
 I'll be going over how to do this with [Cloudflare](https://www.cloudflare.com/), but the steps should be the same for
@@ -78,10 +70,6 @@ Now using the IP's create both A records, using the IPv4, and AAAA records, usin
 If you are using [Cloudflare](https://www.cloudflare.com/), make sure the proxy is disabled for now.
 
 Click on the orange cloud when adding the entry to make it grey.
-
-![CF Proxy enabled](images/CF_proxy_enabled.png)
-
-![CF Proxy disabled](images/CF_proxy_disabled.png)
 
 * root domain
   *, e.g. ```example.com```

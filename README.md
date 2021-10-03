@@ -1,6 +1,6 @@
 # Yali
 
-Sietch is an Ansible package to set up Laravel on a server of your choice. This package does not take care of setting up the infrastructure. So you are expected to set up a VPS or server with access to it so the Ansible playbook(s) can be used.
+Tali is an Ansible package to set up Laravel on a server of your choice. This package does not take care of setting up the infrastructure. So you are expected to set up a VPS or server with access to it so the Ansible playbook(s) can be used.
 ## Based on
 
 This package is based on [Haak's Deploying Laravel App Stage 2](https://github.com/haakco/deploying-laravel-app-stage2-simple-with-ansible-deploy) for which we are very grateful.
@@ -27,8 +27,7 @@ This stage we'll take the manual server steps and automate them via ansible.
 
 ## Steps 1-3
 
-These are the same as for [Stage 1](STG1.md). So please
-follow that till the end of Step 3.
+These are the same as for [Stage 1](STG1.md). So please follow that till the end of Step 3.
 
 We'll then start from Step 4 by using Ansible instead.
 
