@@ -1,4 +1,4 @@
-# Sietch
+# Yali
 
 Sietch is an Ansible package to set up Laravel on a server of your choice. This package does not take care of setting up the infrastructure. So you are expected to set up a VPS or server with access to it so the Ansible playbook(s) can be used.
 ## Based on
